@@ -1,6 +1,10 @@
 @import 'tailwindcss';
-@import 'remixicon/fonts/remixicon.css'
+@import 'remixicon/fonts/remixicon.css';
 
+/* In index.css or global.css */
+*,body{
+  cursor: none;
+}
 
 
 /* Add to your CSS file for enhanced animations */

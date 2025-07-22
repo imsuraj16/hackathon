@@ -9,7 +9,7 @@ export default function SleepyOwlFooter() {
       <div className="max-w-7xl mx-auto">
         {/* Large faded heading */}
         <div className="text-center mb-16">
-          <h2 className="text-7xl md:text-[12rem] font-bold text-gray-300 tracking-wider leading-none">
+         <h2 className="text-7xl md:text-[12rem] font-bold tracking-wider leading-none bg-gradient-to-r from-amber-600 via-orange-500 to-amber-800 bg-clip-text text-transparent">
             SLEEPY OWL
           </h2>
         </div>

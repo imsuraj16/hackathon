@@ -104,10 +104,7 @@ const Section1 = () => {
       <div className="flex flex-col md:flex-row items-center justify-between gap-6 md:gap-8">
         <div className="flex flex-col gap-[2rem] md:gap-[3rem] items-center md:items-start">
           <p className="w-full md:w-[15rem] text-center md:text-left text-sm sm:text-base">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis illo
-            velit quam architecto beatae sapiente doloribus blanditiis
-            dignissimos iste libero, ab minima eum illum amet et quo aut totam
-            quas.
+           Born from a passion for exceptional coffee, Sleepy Owl revolutionizes your daily brew experience. From our signature cold brew to artisanal blends, we bring café-quality coffee to your home with innovative brewing methods and premium beans sourced from the finest origins.
           </p>
           <button className="bg-black w-fit px-[2rem] sm:px-[3rem] py-2 rounded-lg text-white text-sm sm:text-base hover:bg-orange-500 hover:scale-105 active:scale-95 transition-all duration-300 ease-out hover:shadow-lg">
             Buy Now

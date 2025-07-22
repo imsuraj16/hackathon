@@ -7,6 +7,7 @@ import Footer from "../sections/Footer";
 import Section6 from "../sections/Section6";
 import Section7 from "../sections/Section7";
 
+
 const Home = () => {
   return (
     <div className="w-full min-h-screen">
