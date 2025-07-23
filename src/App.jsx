@@ -12,7 +12,7 @@ const App = () => {
   };
 
   return (
-    <div className="w-full min-h-screen font-['Helvatica_Now_Display']">
+    <div className="w-full min-h-screen font-['Helvatica_Now_Display'] bg-[#BDB2A7]">
       <CustomCursor />
 
       {isLoading ? (
