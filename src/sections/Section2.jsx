@@ -73,7 +73,7 @@ const Section2 = () => {
         {/* Center text block */}
         <div
           ref={textRef}
-          className="absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20 text-white flex flex-col gap-[1rem] sm:gap-[2rem] px-4"
+          className="absolute left-1/2 top-1/3 transform -translate-x-1/2 -translate-y-1/2 z-20 text-white flex flex-col gap-[1rem] sm:gap-[2rem] px-4"
         >
           <h1 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[5rem] leading-tight text-center">
             Cultivated <br /> art <br /> coffee
@@ -96,7 +96,7 @@ const Section2 = () => {
             >
               <img
                 className="h-full w-full object-cover transform transition-transform duration-300 hover:scale-105"
-                src="https://plus.unsplash.com/premium_photo-1675435644687-562e8042b9db?q=80&w=749&auto=format&fit=crop"
+                src="https://cdn.shopify.com/s/files/1/0109/2327/8417/files/rsz_jimmys_x_sleepy_owl_espresso_martini_-_available_exclusively_on_drinkjimmyscom-min.jpg?v=1675748554"
                 alt="Coffee roasting process"
               />
             </div>
@@ -110,7 +110,7 @@ const Section2 = () => {
             >
               <img
                 className="h-full w-full object-cover transform transition-transform duration-300 hover:scale-105"
-                src="https://plus.unsplash.com/premium_photo-1675435644687-562e8042b9db?q=80&w=749&auto=format&fit=crop"
+                src="https://imgmediagumlet.lbb.in/media/2020/05/5ec25bc938738b2d37c1d450_1589795785214.jpg"
                 alt="Coffee equipment view"
               />
             </div>

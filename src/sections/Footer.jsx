@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { ArrowRight } from 'lucide-react';
 
-export default function SleepyOwlFooter() {
+ function Footer() {
   const [email, setEmail] = useState('');
 
   return (
@@ -9,7 +9,7 @@ export default function SleepyOwlFooter() {
       <div className="max-w-7xl mx-auto">
         {/* Large faded heading */}
         <div className="text-center mb-16">
-         <h2 className="text-7xl md:text-[12rem] font-bold tracking-wider leading-none bg-gradient-to-r from-amber-600 via-orange-500 to-amber-800 bg-clip-text text-transparent">
+         <h2 className="text-7xl md:text-[10rem] font-bold tracking-wider leading-none bg-gradient-to-r from-amber-600 via-orange-500 to-amber-800 bg-clip-text text-transparent">
             SLEEPY OWL
           </h2>
         </div>
@@ -100,3 +100,6 @@ export default function SleepyOwlFooter() {
     </footer>
   );
 }
+
+
+export default Footer

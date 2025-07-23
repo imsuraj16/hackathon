@@ -21,7 +21,7 @@ const Nav = () => {
     }`;
 
   return (
-    <nav className='w-full flex items-center justify-between px-6 md:px-[3rem] py-[1.5rem] bg-[#BDB2A7] backdrop-blur-sm sticky top-0 z-50'>
+    <nav className='w-full flex items-center justify-between px-6 md:px-[3rem] py-[1.2rem] bg-[#BDB2A7] backdrop-blur-sm sticky top-0 z-50'>
       {/* Logo */}
       <div className='flex items-center'>
         <h1 className='text-2xl md:text-3xl font-bold text-gray-800'>
@@ -41,6 +41,14 @@ const Nav = () => {
             {index !== navLinks.length - 1 && <span className='text-gray-400'>/</span>}
           </React.Fragment>
         ))}
+
+      
+        <NavLink
+          to="/login"
+          className="ml-6 px-4 py-2 bg-orange-600 text-white font-semibold rounded-full hover:bg-orange-700 transition duration-300"
+        >
+          Login
+        </NavLink>
       </div>
 
       {/* Mobile Menu Button */}
@@ -53,7 +61,6 @@ const Nav = () => {
         </button>
       </div>
 
-      {/* Mobile Navigation Menu */}
       {isMenuOpen && (
         <div className='absolute top-full left-0 w-full bg-amber-50/95 backdrop-blur-sm border-b border-amber-200/50 md:hidden'>
           <div className='flex flex-col space-y-4 px-6 py-4'>
@@ -67,6 +74,14 @@ const Nav = () => {
                 {label}
               </NavLink>
             ))}
+
+            <NavLink
+              to="/login"
+              onClick={() => setIsMenuOpen(false)}
+              className="mt-2 text-white bg-orange-600 text-center rounded-full py-2 font-semibold hover:bg-orange-700 transition-colors duration-300"
+            >
+              Login
+            </NavLink>
           </div>
         </div>
       )}

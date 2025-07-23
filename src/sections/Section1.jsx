@@ -134,7 +134,7 @@ const Section1 = () => {
       {/* Water liquid effect container */}
       <div 
         ref={containerRef}
-        className="absolute -bottom-[1rem] sm:-bottom-[2rem] md:-bottom-[3rem] left-1/2 -translate-x-1/2 w-[14rem] sm:w-[18rem] md:w-[20rem] lg:w-[25rem] xl:w-[30rem] h-[18rem] sm:h-[23rem] md:h-[30rem] lg:h-[35rem] xl:h-[40rem] cursor-pointer"
+        className="absolute -bottom-[1rem] sm:-bottom-[2rem] md:-bottom-[3rem] left-1/2 -translate-x-1/2 w-[14rem] sm:w-[18rem] md:w-[20rem] lg:w-[25rem] xl:w-[33rem] h-[18rem] sm:h-[23rem] md:h-[30rem] lg:h-[35rem] xl:h-[45rem] cursor-pointer"
       >
         {/* Orange blur background */}
         <div className="absolute inset-0 bg-orange-400 opacity-60 blur-3xl rounded-full transform scale-110 -z-10"></div>
