@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 const Products = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const [touchStart, setTouchStart] = useState(0);
+  const [touchEnd, setTouchEnd] = useState(0);
   const navigate = useNavigate();
 
   const fallbackProducts = [
@@ -36,6 +38,30 @@ const Products = () => {
       (prev) => (prev - 1 + productData.length) % productData.length
     );
     setTimeout(() => setIsAnimating(false), 600);
+  };
+
+  // Touch handlers for mobile swipe
+  const handleTouchStart = (e) => {
+    setTouchStart(e.targetTouches[0].clientY);
+  };
+
+  const handleTouchMove = (e) => {
+    setTouchEnd(e.targetTouches[0].clientY);
+  };
+
+  const handleTouchEnd = () => {
+    if (!touchStart || !touchEnd) return;
+    
+    const distance = touchStart - touchEnd;
+    const isDownSwipe = distance > 50;
+    const isUpSwipe = distance < -50;
+
+    if (isDownSwipe && !isAnimating) {
+      nextProduct();
+    }
+    if (isUpSwipe && !isAnimating) {
+      prevProduct();
+    }
   };
 
   useEffect(() => {
@@ -131,6 +157,9 @@ const Products = () => {
       id="product-container"
       className="w-full min-h-screen flex items-center justify-center overflow-hidden relative px-4 sm:px-6 lg:px-8 py-8 lg:py-0"
       style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#2A2621" }}
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
     >
       <div className="absolute inset-0">
         {circles.map((circle, index) => (
@@ -279,8 +308,8 @@ const Products = () => {
       <button
         onClick={prevProduct}
         disabled={isAnimating}
-        className="absolute left-2 sm:left-4 lg:left-8 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full backdrop-blur-sm hover:opacity-80 transition-all duration-300 flex items-center justify-center text-white disabled:opacity-30"
-        style={{ backgroundColor: "rgba(189, 178, 167, 0.1)" }}
+        className="absolute left-2 sm:left-4 lg:left-8 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full backdrop-blur-sm hover:opacity-80 transition-all duration-300 flex items-center justify-center text-white disabled:opacity-30 z-20"
+        style={{ backgroundColor: "rgba(189, 178, 167, 0.2)", border: "1px solid rgba(189, 178, 167, 0.3)" }}
       >
         <svg
           className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"
@@ -300,8 +329,8 @@ const Products = () => {
       <button
         onClick={nextProduct}
         disabled={isAnimating}
-        className="absolute right-2 sm:right-4 lg:right-8 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full backdrop-blur-sm hover:opacity-80 transition-all duration-300 flex items-center justify-center text-white disabled:opacity-30"
-        style={{ backgroundColor: "rgba(189, 178, 167, 0.1)" }}
+        className="absolute right-2 sm:right-4 lg:right-8 top-1/2 transform -translate-y-1/2 w-10 h-10 sm:w-12 sm:h-12 rounded-full backdrop-blur-sm hover:opacity-80 transition-all duration-300 flex items-center justify-center text-white disabled:opacity-30 z-20"
+        style={{ backgroundColor: "rgba(189, 178, 167, 0.2)", border: "1px solid rgba(189, 178, 167, 0.3)" }}
       >
         <svg
           className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6"

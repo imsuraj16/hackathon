@@ -42,7 +42,7 @@ const Nav = () => {
         showNavbar ? "translate-y-0" : "-translate-y-full"
       } ${atTop ? "bg-[#BDB2A7]" : "bg-[#BDB2A7]/30 backdrop-blur-md"}`}
     >
-      {/* Logo */}
+    
       <div className="flex items-center">
         <img
           src="//sleepyowl.co/cdn/shop/files/logo_107a2c0c-7f30-46ef-b852-05b27807f310_110x.png?v=1629351406"

@@ -1,8 +1,10 @@
 import React, { useRef, useEffect } from "react";
 import { motion, useScroll, useTransform, useInView } from "framer-motion";
 import { Coffee, Users, Target, Award, Globe, Zap } from "lucide-react";
+import { useNavigate } from "react-router-dom";
 
 const About = () => {
+  const navigate = useNavigate()
   const containerRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -128,7 +130,7 @@ const About = () => {
 
           <motion.h1
             variants={fadeInUp}
-            className="text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent"
+            className="p-2 text-6xl md:text-8xl font-bold mb-6 bg-gradient-to-r from-orange-600 via-amber-600 to-yellow-600 bg-clip-text text-transparent"
           >
             Sleepy Owl
           </motion.h1>
@@ -391,6 +393,7 @@ const About = () => {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
+              onClick={()=>navigate('/products')}
               className="bg-gradient-to-r from-orange-500 to-amber-500 text-white px-12 py-4 rounded-full text-lg font-semibold shadow-2xl hover:shadow-orange-500/25 transition-all duration-300"
             >
               Explore Our Coffee
