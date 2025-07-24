@@ -21,6 +21,7 @@ const CustomCursor = () => {
   }, []);
 
   return (
+  <div className="hidden md:block">
     <div
       className="fixed pointer-events-none z-[9999] transition-transform duration-100 ease-out"
       style={{
@@ -30,19 +31,19 @@ const CustomCursor = () => {
       }}
     >
       <img
-      className="w-12 h-12 select-none"
         src="https://user-gen-media-assets.s3.amazonaws.com/gpt4o_images/f7556303-68b1-48c8-b154-2802911c8773.png"
         alt="custom-cursor"
         className="w-8 h-8 select-none"
         draggable={false}
       />
 
-      {/* Optional ripple effect */}
       {isClicking && (
         <div className="absolute inset-0 w-10 h-10 border border-orange-950 rounded-full animate-ping opacity-50"></div>
       )}
     </div>
-  );
+  </div>
+);
+
 };
 
 export default CustomCursor;

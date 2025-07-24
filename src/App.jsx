@@ -4,6 +4,7 @@ import Mainroutes from "./routes/Mainroutes";
 import Loader from "./components/Loader";
 import CustomCursor from "./components/CustomCursor";
 
+
 const App = () => {
   const [isLoading, setIsLoading] = useState(true);
 
@@ -14,7 +15,6 @@ const App = () => {
   return (
     <div className="w-full min-h-screen font-['Helvatica_Now_Display'] bg-[#BDB2A7]">
       <CustomCursor />
-
       {isLoading ? (
         <Loader onLoadingComplete={handleLoadingComplete} />
       ) : (

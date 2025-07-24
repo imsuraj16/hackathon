@@ -14,12 +14,12 @@ const Section6 = () => {
     const statElements = statsRef.current;
     const numberElements = numbersRef.current;
 
-    // Ensure all refs are available
+    
     if (!section || statElements.length === 0 || numberElements.length === 0) {
       return;
     }
 
-    // Counter animation function
+    
     const animateCounter = (element, target) => {
       if (!element) return;
       
@@ -41,22 +41,21 @@ const Section6 = () => {
       );
     };
 
-    // Create unique context for this section
+    
     let ctx = gsap.context(() => {
-      // Main timeline with unique trigger
+      
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: section,
           start: 'top 80%',
           end: 'bottom 20%',
           toggleActions: 'play none none reverse',
-          id: 'section6-main', // Unique ID
-          refreshPriority: -10 // Lower priority than Section5
+          id: 'section6-main', 
+          refreshPriority: -10 
         }
       });
 
-      // Animate heading first
-      tl.fromTo('.section6-heading', // More specific class
+      tl.fromTo('.section6-heading', 
         { 
           y: 50, 
           opacity: 0 
@@ -68,7 +67,7 @@ const Section6 = () => {
           ease: 'power2.out'
         }
       )
-      .fromTo('.section6-subtext', // More specific class
+      .fromTo('.section6-subtext', 
         { 
           y: 30, 
           opacity: 0 
@@ -80,7 +79,6 @@ const Section6 = () => {
           ease: 'power2.out'
         }, '-=0.4')
       
-      // Animate stat circles with stagger
       .fromTo(statElements,
         {
           scale: 0,
@@ -95,7 +93,7 @@ const Section6 = () => {
           ease: 'back.out(1.7)',
           stagger: 0.2,
           onComplete: () => {
-            // Start counter animations after circles are visible
+
             numberElements.forEach((el, index) => {
               const targets = ['10K+', '50K+', '50+'];
               animateCounter(el, targets[index]);
@@ -105,9 +103,9 @@ const Section6 = () => {
 
     }, section);
 
-    // Cleanup function
+    
     return () => {
-      ctx.revert(); // Clean up all GSAP animations in this context
+      ctx.revert(); 
     };
   }, []);
 
@@ -116,7 +114,7 @@ const Section6 = () => {
       ref={sectionRef}
       className="py-20 px-6 bg-[#E6E5E1] relative overflow-hidden"
     >
-      {/* Background decorative elements */}
+      
       <div className="absolute inset-0 opacity-5">
         <div className="absolute top-20 left-10 w-32 h-32 border-2 border-orange-300 rounded-full"></div>
         <div className="absolute bottom-20 right-10 w-24 h-24 border-2 border-orange-300 rounded-full"></div>
@@ -124,7 +122,7 @@ const Section6 = () => {
       </div>
 
       <div className="max-w-6xl mx-auto text-center relative z-10">
-        {/* Updated class names for specificity */}
+        
         <h2 className="section6-heading text-4xl md:text-5xl lg:text-6xl font-bold text-gray-900 mb-6">
           Brewing success one sip at a time
         </h2>
@@ -134,15 +132,15 @@ const Section6 = () => {
           Pure, bold, and unstoppable—one sip at a time.
         </p>
 
-        {/* Statistics Grid */}
+
         <div className="grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-8 lg:gap-12">
           
-          {/* Stat 1 - Cups Served */}
+          
           <div 
             ref={el => statsRef.current[0] = el}
             className="relative"
           >
-            {/* Decorative star */}
+
             <div className="absolute -top-8 left-1/2 transform -translate-x-1/2">
               <div className="w-6 h-6 text-orange-500">
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -151,12 +149,12 @@ const Section6 = () => {
               </div>
             </div>
             
-            {/* Circular progress background */}
+            
             <div className="relative w-48 h-48 mx-auto">
-              {/* Background circle */}
+
               <div className="absolute inset-0 rounded-full border-4 border-gray-200"></div>
               
-              {/* Progress circle */}
+
               <svg className="absolute inset-0 w-full h-full transform -rotate-90" viewBox="0 0 192 192">
                 <circle
                   cx="96"
@@ -189,13 +187,12 @@ const Section6 = () => {
               </div>
             </div>
           </div>
-
-          {/* Stat 2 - Orders Shipped (Center) */}
+          
           <div 
             ref={el => statsRef.current[1] = el}
             className="relative"
           >
-            {/* Decorative star */}
+
             <div className="absolute -bottom-8 left-1/2 transform -translate-x-1/2">
               <div className="w-6 h-6 text-orange-500">
                 <svg viewBox="0 0 24 24" fill="currentColor">
@@ -204,7 +201,7 @@ const Section6 = () => {
               </div>
             </div>
             
-            {/* Full circle for center stat */}
+
             <div className="relative w-52 h-52 mx-auto">
               <div className="absolute inset-0 rounded-full border-4 border-gray-200"></div>
               
@@ -240,12 +237,12 @@ const Section6 = () => {
             </div>
           </div>
 
-          {/* Stat 3 - Cities Reached */}
+          
           <div 
             ref={el => statsRef.current[2] = el}
             className="relative"
           >
-            {/* Decorative star */}
+
             <div className="absolute -top-8 right-1/2 transform translate-x-1/2">
               <div className="w-6 h-6 text-orange-500">
                 <svg viewBox="0 0 24 24" fill="currentColor">

@@ -15,12 +15,12 @@ const Section5 = () => {
     if (!canvas || !container) return;
     const context = canvas.getContext('2d');
 
-    // Canvas animation setup
+    
     const frameCount = 170;
     const images = new Array(frameCount);
     const imageSeq = { frame: 0 };
 
-    // Set canvas size
+    
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
@@ -31,7 +31,7 @@ const Section5 = () => {
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
 
-    // Image loader helper
+
     const getImagePath = (index) => {
       const frameNumber = String(index + 1).padStart(3, '0');
       return `/Frames/ezgif-frame-${frameNumber}.jpg`;
@@ -59,7 +59,7 @@ const Section5 = () => {
       }
     };
 
-    // Load all images
+    
     const loadImages = () => {
       return new Promise((resolve) => {
         let loadedCount = 0;
@@ -88,9 +88,9 @@ const Section5 = () => {
       });
     };
 
-    // Main animation logic
+    
     const setupAnimation = () => {
-      // Canvas animation
+      
       const canvasAnimation = gsap.to(imageSeq, {
         frame: frameCount - 1,
         snap: 'frame',
@@ -108,7 +108,7 @@ const Section5 = () => {
         onUpdate: renderFrame,
       });
 
-      // Text animation
+      
       const textElements = document.querySelectorAll('.section5-canvas-text h4');
       if (textElements.length > 0) {
         textElements.forEach((h) => {
@@ -119,7 +119,7 @@ const Section5 = () => {
           h.innerHTML = clutterc;
         });
 
-        // Timeline for text animation
+        
         const tlc = gsap.timeline({
           scrollTrigger: {
             trigger: canvas,
@@ -155,14 +155,14 @@ const Section5 = () => {
       }
     };
 
-    // Async load images then animate
+    
     let animationContext;
     loadImages()
       .then(() => {
         animationContext = gsap.context(() => setupAnimation(), container);
       });
 
-    // Cleanup
+    
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       if (animationContext) animationContext.revert();
@@ -207,7 +207,7 @@ const Section5 = () => {
           pointerEvents: 'none',
         }}
       >
-        {/* Add your text content here with section5-canvas-text class */}
+
       </div>
     </section>
   );

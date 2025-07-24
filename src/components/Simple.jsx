@@ -7,7 +7,7 @@ const Simple = () => {
   });
 
   return (
-    <div style={{ width: 450, height: 450 }} className="absolute -bottom-[5rem]">
+    <div style={{ width: 400, height: 400 }} className="absolute -bottom-[5.3rem] left-[4rem]">
       <RiveComponent  />
     </div>
   );

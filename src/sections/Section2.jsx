@@ -11,7 +11,6 @@ const Section2 = () => {
   const textRef = useRef(null);
 
   useEffect(() => {
-    // Fade-in & slide-up text
     gsap.fromTo(
       textRef.current,
       { opacity: 0, y: 50 },
@@ -28,7 +27,6 @@ const Section2 = () => {
       }
     );
 
-    // Scale animation for first image div (from large to normal)
     gsap.fromTo(
       image1DivRef.current,
       { scale: 2.2 },
@@ -45,7 +43,6 @@ const Section2 = () => {
       }
     );
 
-    // Scale animation for second image div (from large to normal, with slight delay)
     gsap.fromTo(
       image2DivRef.current,
       { scale: 2.2 },
@@ -62,21 +59,18 @@ const Section2 = () => {
       }
     );
 
-    // Clean up
     return () => ScrollTrigger.getAll().forEach((t) => t.kill());
   }, []);
 
   return (
     <div>
-      {/* Main scrollable section */}
       <div
         ref={sectionRef}
         className="w-full bg-[#191512] relative pt-[3rem] sm:pt-[5rem] sm:pb-[10rem] overflow-hidden"
       >
-        {/* Center text block */}
-         <div
-    ref={textRef}
-    className="
+        <div
+          ref={textRef}
+          className="
       absolute 
       left-1/2 
       top-1/2 
@@ -90,21 +84,21 @@ const Section2 = () => {
       gap-[1rem] sm:gap-[2rem] 
       px-4
     "
-  >
-    <h1 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[5rem] leading-tight text-center">
-      Cultivated <br /> art <br /> coffee
-    </h1>
-    <p className="w-full max-w-[20rem] sm:max-w-[25rem] lg:max-w-[27rem] text-sm sm:text-base lg:text-lg leading-relaxed text-center mx-auto">
-      The passion for exceptional coffees continues to be transmitted in this centuries-old roasting workshop, a warm
-      place which offers lively and vibrant coffee, coming from the most beautiful origins and always roasted according
-      to the rules of the art. Between passion and tradition, Maison DEUZA perpetuates local history with one of the
-      most consumed drinks in the world.
-    </p>
-  </div>
+        >
+          <h1 className="text-[2.5rem] sm:text-[3.5rem] lg:text-[5rem] leading-tight text-center">
+            Cultivated <br /> art <br /> coffee
+          </h1>
+          <p className="w-full max-w-[20rem] sm:max-w-[25rem] lg:max-w-[27rem] text-sm sm:text-base lg:text-lg leading-relaxed text-center mx-auto">
+            The passion for exceptional coffees continues to be transmitted in
+            this centuries-old roasting workshop, a warm place which offers
+            lively and vibrant coffee, coming from the most beautiful origins
+            and always roasted according to the rules of the art. Between
+            passion and tradition, Maison DEUZA perpetuates local history with
+            one of the most consumed drinks in the world.
+          </p>
+        </div>
 
-        {/* Images Container */}
         <div className="flex flex-col lg:block">
-          {/* First Image */}
           <div className="px-[2rem] sm:px-[5rem] lg:px-[10rem] flex items-start mb-[2rem] lg:mb-0">
             <div
               ref={image1DivRef}
@@ -118,7 +112,6 @@ const Section2 = () => {
             </div>
           </div>
 
-          {/* Second Image */}
           <div className="px-[2rem] sm:px-[5rem] lg:px-[10rem] flex justify-start lg:justify-end py-[1rem] lg:py-[2rem]">
             <div
               ref={image2DivRef}
