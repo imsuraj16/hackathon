@@ -7,6 +7,7 @@ const Products = () => {
   const [isAnimating, setIsAnimating] = useState(false);
   const [touchStart, setTouchStart] = useState(0);
   const [touchEnd, setTouchEnd] = useState(0);
+  const [headingVisible, setHeadingVisible] = useState(false);
   const navigate = useNavigate();
 
   const fallbackProducts = [
@@ -23,6 +24,14 @@ const Products = () => {
 
   const productData =
     products && products.length > 0 ? products : fallbackProducts;
+
+  // Animate heading on mount
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setHeadingVisible(true);
+    }, 300);
+    return () => clearTimeout(timer);
+  }, []);
 
   const nextProduct = () => {
     if (isAnimating) return;
@@ -155,12 +164,13 @@ const Products = () => {
   return (
     <div
       id="product-container"
-      className="w-full min-h-screen flex items-center justify-center overflow-hidden relative px-4 sm:px-6 lg:px-8 py-8 lg:py-0"
-      style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#2A2621" }}
+      className="w-full min-h-screen flex flex-col items-center justify-center overflow-hidden relative px-4 sm:px-6 lg:px-8 py-8 lg:py-0"
+      style={{ fontFamily: "Inter, sans-serif", backgroundColor: "#191512" }}
       onTouchStart={handleTouchStart}
       onTouchMove={handleTouchMove}
       onTouchEnd={handleTouchEnd}
     >
+      {/* Animated Background Circles */}
       <div className="absolute inset-0">
         {circles.map((circle, index) => (
           <div
@@ -223,7 +233,50 @@ const Products = () => {
         `}</style>
       </div>
 
-      <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-between relative z-10 gap-8 lg:gap-0">
+      {/* Animated Section Heading */}
+      <div className="relative z-10 text-center mb-6 lg:mb-8 w-full">
+        <div className="overflow-hidden">
+          <h2 
+            className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white transition-all duration-1000 ease-out ${
+              headingVisible 
+                ? "translate-y-0 opacity-100" 
+                : "translate-y-full opacity-0"
+            }`}
+          >
+            Our Products
+          </h2>
+        </div>
+        
+        {/* Animated underline */}
+        <div className="flex justify-center mt-3 lg:mt-4">
+          <div 
+            className={`h-1 bg-gradient-to-r from-transparent via-amber-600 to-transparent transition-all duration-1200 ease-out ${
+              headingVisible ? "w-24 lg:w-32 opacity-100" : "w-0 opacity-0"
+            }`}
+            style={{ 
+              background: "linear-gradient(90deg, transparent 0%, #BDB2A7 20%, #D1C7BC 50%, #BDB2A7 80%, transparent 100%)",
+              transform: headingVisible ? "scaleX(1)" : "scaleX(0)"
+            }}
+          />
+        </div>
+        
+        {/* Subtitle */}
+        <div className="overflow-hidden mt-3">
+          <p 
+            className={`text-xs sm:text-sm lg:text-base font-medium transition-all duration-1000 delay-300 ease-out ${
+              headingVisible 
+                ? "translate-y-0 opacity-100" 
+                : "translate-y-8 opacity-0"
+            }`}
+            style={{ color: "#BDB2A7" }}
+          >
+            Discover Excellence in Every Detail
+          </p>
+        </div>
+      </div>
+
+      {/* Main Product Content */}
+      <div className="w-full max-w-7xl mx-auto flex flex-col lg:flex-row items-center justify-center relative z-10 gap-8 lg:gap-0">
         <div className="w-full lg:w-1/2 lg:pr-12 text-center lg:text-left order-2 lg:order-1">
           <div className="relative overflow-hidden">
             <div className="mb-3 sm:mb-4 h-6 sm:h-8">
@@ -239,9 +292,9 @@ const Products = () => {
                   `[${String(currentIndex + 1).padStart(2, "0")}]`}
               </span>
             </div>
-            <div className="mb-6 sm:mb-8 overflow-hidden">
+            <div className="mb-4 sm:mb-6 overflow-hidden">
               <h1
-                className={`text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight transition-all duration-700 ${
+                className={`text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight transition-all duration-700 ${
                   isAnimating
                     ? "translate-y-full opacity-0"
                     : "translate-y-0 opacity-100"
@@ -250,7 +303,7 @@ const Products = () => {
                 {currentProduct.title}
               </h1>
             </div>
-            <div className="overflow-hidden mb-6 lg:mb-0">
+            <div className="overflow-hidden mb-4 sm:mb-6">
               <p
                 className={`text-sm sm:text-base lg:text-lg leading-relaxed transition-all duration-900 ${
                   isAnimating
@@ -262,13 +315,19 @@ const Products = () => {
                 {currentProduct.description}
               </p>
             </div>
+            <div className="overflow-hidden">
+              <button
+                onClick={() => navigate(`/products/${currentProduct.id}`)}
+                className={`bg-amber-800 px-6 sm:px-8 lg:px-12 py-2 sm:py-3 rounded-lg text-sm sm:text-base text-white hover:bg-amber-700 transition-all duration-500 ${
+                  isAnimating
+                    ? "translate-y-8 opacity-0"
+                    : "translate-y-0 opacity-100"
+                }`}
+              >
+                See details
+              </button>
+            </div>
           </div>
-          <button
-            onClick={() => navigate(`/products/${currentProduct.id}`)}
-            className="bg-amber-800 px-6 sm:px-8 lg:px-12 py-2 sm:py-3 rounded-lg mt-4 sm:mt-6 text-sm sm:text-base text-white hover:bg-amber-700 transition-colors duration-300"
-          >
-            See details
-          </button>
         </div>
 
         <div className="relative flex justify-center items-center w-full lg:w-1/2 h-64 sm:h-80 md:h-96 lg:h-[500px] rounded-2xl order-1 lg:order-2">
@@ -283,6 +342,7 @@ const Products = () => {
         </div>
       </div>
 
+      {/* Navigation Dots */}
       <div className="absolute bottom-4 sm:bottom-6 lg:bottom-8 left-1/2 transform -translate-x-1/2 flex space-x-2 sm:space-x-3">
         {productData.map((_, index) => (
           <button
@@ -305,6 +365,7 @@ const Products = () => {
         ))}
       </div>
 
+      {/* Navigation Arrows */}
       <button
         onClick={prevProduct}
         disabled={isAnimating}
@@ -347,6 +408,7 @@ const Products = () => {
         </svg>
       </button>
 
+      {/* Counter */}
       <div
         className="absolute top-4 sm:top-6 lg:top-8 right-4 sm:right-6 lg:right-8 text-xs sm:text-sm opacity-60"
         style={{ color: "#BDB2A7" }}

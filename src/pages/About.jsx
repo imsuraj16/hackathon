@@ -34,6 +34,70 @@ const About = () => {
     transition: { duration: 0.6, ease: "backOut" },
   };
 
+  // Sleepy Owl Logo Component
+  const SleepyOwlLogo = ({ size = 96 }) => (
+    <div className="relative" style={{ width: size, height: size }}>
+      <svg
+        width={size}
+        height={size}
+        viewBox="0 0 100 100"
+        xmlns="http://www.w3.org/2000/svg"
+        className="drop-shadow-lg"
+      >
+        {/* Owl Body */}
+        <ellipse cx="50" cy="60" rx="25" ry="30" fill="#D97706" />
+        
+        {/* Owl Head */}
+        <circle cx="50" cy="35" r="22" fill="#EA580C" />
+        
+        {/* Owl Eyes Background */}
+        <circle cx="42" cy="32" r="8" fill="#FFFFFF" />
+        <circle cx="58" cy="32" r="8" fill="#FFFFFF" />
+        
+        {/* Owl Eyes - Wide Awake Look */}
+        <circle cx="42" cy="32" r="5" fill="#1F2937" />
+        <circle cx="58" cy="32" r="5" fill="#1F2937" />
+        
+        {/* Eye Shine */}
+        <circle cx="44" cy="30" r="1.5" fill="#FFFFFF" />
+        <circle cx="60" cy="30" r="1.5" fill="#FFFFFF" />
+        
+        {/* Owl Beak */}
+        <path d="M48 38 L52 38 L50 42 Z" fill="#F59E0B" />
+        
+        {/* Owl Ears/Tufts */}
+        <path d="M35 18 Q38 15 42 20" stroke="#B45309" strokeWidth="3" fill="none" strokeLinecap="round" />
+        <path d="M65 18 Q62 15 58 20" stroke="#B45309" strokeWidth="3" fill="none" strokeLinecap="round" />
+        
+        {/* Wing Details */}
+        <ellipse cx="40" cy="55" rx="8" ry="15" fill="#B45309" opacity="0.7" />
+        <ellipse cx="60" cy="55" rx="8" ry="15" fill="#B45309" opacity="0.7" />
+        
+        {/* Coffee Bean Accent */}
+        <ellipse cx="50" cy="75" rx="3" ry="5" fill="#92400E" />
+        <path d="M50 72 Q52 75 50 78" stroke="#FBBF24" strokeWidth="1" fill="none" />
+      </svg>
+      
+      {/* Coffee Steam Animation */}
+      <div className="absolute -top-2 left-1/2 transform -translate-x-1/2">
+        <motion.div
+          animate={{
+            y: [0, -8, 0],
+            opacity: [0.4, 0.8, 0.4],
+          }}
+          transition={{
+            duration: 2,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+          className="text-orange-400 text-sm"
+        >
+          ☕
+        </motion.div>
+      </div>
+    </div>
+  );
+
   const AnimatedCounter = ({ end, duration = 2 }) => {
     const [count, setCount] = React.useState(0);
     const counterRef = useRef(null);
@@ -119,7 +183,7 @@ const About = () => {
         <div className="text-center max-w-6xl mx-auto">
           <motion.div variants={scaleIn} className="inline-block mb-8">
             <div className="relative">
-              <Coffee className="w-24 h-24 text-orange-600 mx-auto mb-4" />
+              <SleepyOwlLogo size={96} />
               <motion.div
                 className="absolute -inset-4 bg-orange-200 rounded-full opacity-30"
                 animate={{ scale: [1, 1.2, 1] }}
@@ -310,8 +374,8 @@ const About = () => {
                 className="bg-white rounded-2xl p-8 shadow-2xl text-center relative overflow-hidden"
               >
                 <div className="absolute top-0 left-0 w-full h-2 bg-gradient-to-r from-orange-400 to-amber-400"></div>
-                <div className="w-24 h-24 bg-gradient-to-r from-orange-400 to-amber-400 rounded-full mx-auto mb-6 flex items-center justify-center">
-                  <Users className="w-12 h-12 text-white" />
+                <div className="w-24 h-24 mx-auto mb-6 flex items-center justify-center">
+                  <SleepyOwlLogo size={64} />
                 </div>
                 <h3 className="text-2xl font-bold text-gray-800 mb-2">
                   {founder.name}

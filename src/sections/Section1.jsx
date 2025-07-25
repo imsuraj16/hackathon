@@ -86,7 +86,7 @@ const Section1 = () => {
   return (
     <div className="bg-[#BDB2A7] w-full min-h-screen px-4 sm:px-6 md:px-16 lg:px-[8rem] font-[Helvativa_Now_Display] py-[2rem] pb-[8rem] relative overflow-hidden">
       <div className="flex items-center flex-col leading-tight text-center">
-        <h1 className="text-orange-500 text-[1rem] sm:text-[1.2rem] md:text-[1.4rem] lg:text-[1.6rem] hover:text-orange-400 transition-colors duration-300 ease-out">
+        <h1 className="text-black text-[1rem] sm:text-[1.2rem] md:text-[1.4rem] lg:text-[1.6rem] hover:text-orange-400 transition-colors duration-300 ease-out">
           Pure Caffine Nothing Extra
         </h1>
         <h1 className="text-[4rem] sm:text-[6rem] md:text-[10rem] lg:text-[14rem] xl:text-[20rem] pb-[2rem] md:pb-[4rem] lg:pb-[4.8rem] hover:scale-105 transition-transform duration-500 ease-out cursor-default">

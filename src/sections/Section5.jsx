@@ -16,7 +16,7 @@ const Section5 = () => {
     const context = canvas.getContext('2d');
 
     
-    const frameCount = 170;
+    const frameCount = 110;
     const images = new Array(frameCount);
     const imageSeq = { frame: 0 };
 
@@ -34,7 +34,7 @@ const Section5 = () => {
 
     const getImagePath = (index) => {
       const frameNumber = String(index + 1).padStart(3, '0');
-      return `/Frames/ezgif-frame-${frameNumber}.jpg`;
+      return `/Frames/ezgif-frame-${frameNumber}.png`;
     };
 
     const scaleImage = (img, ctx) => {

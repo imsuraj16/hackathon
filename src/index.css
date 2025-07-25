@@ -1,13 +1,21 @@
 @import 'tailwindcss';
 @import 'remixicon/fonts/remixicon.css';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap');
 
-/* In index.css or global.css */
-*,body{
+/* Global font family setup with Helvetica Now Display */
+* {
   cursor: none;
+  font-family: 'Helvetica Now Display', 'Inter', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
 }
 
+body {
+  cursor: none;
+  font-family: 'Helvetica Now Display', 'Inter', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
 
-/* Add to your CSS file for enhanced animations */
+/* Enhanced animations */
 @keyframes slideDown {
   from {
     opacity: 0;
@@ -49,24 +57,37 @@ body::-webkit-scrollbar-track {
 }
 
 body::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2);
+  background: rgba(0, 0, 0, 0.2);
   border-radius: 3px;
 }
 
 body::-webkit-scrollbar-thumb:hover {
-  background: rgba(0,0,0,0.3);
+  background: rgba(0, 0, 0, 0.3);
 }
 
+/* Firefox scrollbar styling */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 0, 0, 0.2) transparent;
+}
 
-/* Add to your global CSS file */
+/* Float and rotation animations */
 @keyframes float {
-  0%, 100% { transform: translateY(0px); }
-  50% { transform: translateY(-20px); }
+  0%, 100% { 
+    transform: translateY(0px); 
+  }
+  50% { 
+    transform: translateY(-20px); 
+  }
 }
 
 @keyframes rotate {
-  from { transform: rotate(0deg); }
-  to { transform: rotate(360deg); }
+  from { 
+    transform: rotate(0deg); 
+  }
+  to { 
+    transform: rotate(360deg); 
+  }
 }
 
 .animate-float {
@@ -79,8 +100,12 @@ body::-webkit-scrollbar-thumb:hover {
 
 /* Custom gradient animation */
 @keyframes gradient-shift {
-  0%, 100% { background-position: 0% 50%; }
-  50% { background-position: 100% 50%; }
+  0%, 100% { 
+    background-position: 0% 50%; 
+  }
+  50% { 
+    background-position: 100% 50%; 
+  }
 }
 
 .gradient-animate {
@@ -88,3 +113,25 @@ body::-webkit-scrollbar-thumb:hover {
   animation: gradient-shift 4s ease infinite;
 }
 
+/* Additional font weights and styles */
+.font-helvetica {
+  font-family: 'Helvetica Now Display', 'Inter', 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
+}
+
+/* Performance optimizations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+/* Better text rendering */
+.text-rendering-optimized {
+  text-rendering: optimizeLegibility;
+  -webkit-font-feature-settings: "kern" 1;
+  font-feature-settings: "kern" 1;
+  -webkit-font-kerning: normal;
+  font-kerning: normal;
+}

@@ -185,7 +185,6 @@ const Section3 = () => {
       ref={containerRef}
       className="w-full bg-[#E6E5E1] px-4 sm:px-8 md:px-16 lg:px-32 xl:px-40 2xl:px-80 py-12 md:py-20 lg:py-32 flex flex-col gap-12 md:gap-16 lg:gap-32"
     >
-      {/* Header Section */}
       <div ref={headerRef} className="w-full flex items-center">
         <div className="flex flex-col gap-6 md:gap-12">
           <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl leading-tight md:leading-[4.5rem]">
@@ -197,7 +196,6 @@ const Section3 = () => {
         </div>
       </div>
 
-      {/* Selectable Image Cards Section */}
       <div className="flex flex-col lg:flex-row gap-8 lg:gap-0">
         <div ref={selectionsRef} className="w-full lg:w-1/2 pt-0 lg:pt-20">
           {sleepyOwlSelections.map((selection, i) => (
@@ -233,7 +231,6 @@ const Section3 = () => {
         </div>
       </div>
 
-      {/* Products Cards Section */}
       <div className="w-full flex justify-center my-8 md:my-16">
         <div ref={cardsRef} className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 max-w-7xl">
           {products.map((product, i) => (
@@ -257,10 +254,8 @@ const Section3 = () => {
                 });
               }}
             >
-              {/* Top round tab */}
               <div className="absolute -top-[13px] left-1/2 -translate-x-1/2 w-7 h-[14px] rounded-full bg-white shadow" />
               
-              {/* Product Image */}
               <img
                 src={product.image}
                 alt={product.name}
@@ -268,7 +263,6 @@ const Section3 = () => {
                 loading="lazy"
               />
 
-              {/* Name + Arrow Button */}
               <div className="w-full my-6 md:my-9 flex items-center justify-center">
                 <div className="w-full bg-white rounded-xl px-4 md:px-6 py-3 md:py-4 flex justify-between items-center shadow-sm hover:shadow-md transition-shadow duration-300">
                   <div className="uppercase font-normal tracking-wider text-sm md:text-base lg:text-[17px] leading-tight text-[#181818] flex-1 pr-2">
@@ -282,7 +276,6 @@ const Section3 = () => {
                 </div>
               </div>
 
-              {/* Intensity & Notes */}
               {product.intensity && (
                 <div className="w-full mb-3 flex-grow">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 uppercase font-semibold tracking-wider text-sm md:text-[15px] text-[#232323] mb-2">
@@ -308,7 +301,6 @@ const Section3 = () => {
                 </div>
               )}
 
-              {/* Divider and Price - Fixed positioning */}
               <div className="w-full mt-auto">
                 <hr className="w-full border-t border-[#e5e5e5] my-2" />
                 <div className="mt-3 md:mt-4 text-center font-light tracking-wider text-lg md:text-[19px] text-[#232323] min-h-[28px] flex items-center justify-center">
@@ -316,7 +308,6 @@ const Section3 = () => {
                 </div>
               </div>
 
-              {/* Bottom round tab */}
               <div className="absolute -bottom-[14px] left-1/2 -translate-x-1/2 w-7 h-[14px] rounded-full bg-white shadow" />
             </div>
           ))}

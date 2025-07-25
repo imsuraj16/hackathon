@@ -342,9 +342,6 @@ const ProductDetailsPage = () => {
                           e.target.nextSibling.style.display = "flex";
                         }}
                       />
-                      <div className="w-full h-20 bg-gradient-to-br from-amber-100 to-amber-200 rounded flex items-center justify-center text-amber-600 text-2xl mb-2">
-                        ☕
-                      </div>
                       <div className="text-xs font-medium text-gray-800 mb-1 line-clamp-2">
                         {relatedProduct.title}
                       </div>
