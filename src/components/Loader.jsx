@@ -12,9 +12,10 @@ const Loader = ({ onLoadingComplete }) => {
   useEffect(() => {
     const tl = gsap.timeline({
       onComplete: () => {
+        // Increased delay to allow app to fully load
         setTimeout(() => {
           onLoadingComplete();
-        }, 100);
+        }, 500); // Increased from 100ms to 500ms
       },
     });
 
@@ -24,52 +25,82 @@ const Loader = ({ onLoadingComplete }) => {
     gsap.set(eyesRef.current, { scaleY: 0, transformOrigin: "center" });
     gsap.set(".coffee-fill", { height: "0%" });
 
-    tl.to(eyesRef.current, {
-      scaleY: 1,
-      duration: 0.8,
-      ease: "power2.out",
-      stagger: 0.1,
-    })
+    tl
+      // Initial pause to let things settle
+      .to({}, { duration: 0.8 }) // Added initial delay
+      
+      // Owl eyes opening - slower and more deliberate
+      .to(eyesRef.current, {
+        scaleY: 1,
+        duration: 1.2, // Increased from 0.8s
+        ease: "power2.out",
+        stagger: 0.2, // Increased stagger
+      })
+      
+      // Show coffee cup and tagline
       .to(
         [coffeeRef.current, taglineRef.current],
         {
           opacity: 1,
-          duration: 0.5,
+          duration: 0.8, // Increased from 0.5s
           ease: "power2.out",
         },
-        "-=0.3"
+        "-=0.5"
       )
+      
+      // Coffee filling - much slower for dramatic effect
       .to(".coffee-fill", {
         height: "75%",
-        duration: 1.5,
+        duration: 3.5, // Increased from 1.5s
         ease: "power2.inOut",
       })
+      
+      // Steam appears
       .to(
         steamRef.current,
         {
           opacity: 1,
-          duration: 0.5,
+          duration: 0.8, // Increased from 0.5s
         },
-        "-=1.2"
+        "-=2.5" // Adjusted timing
       )
+      
+      // Steam particles animation - longer and more cycles
       .to(
         ".steam-particle",
         {
-          y: -40,
+          y: -50, // Increased distance
           opacity: 0,
-          duration: 1.8,
+          duration: 2.5, // Increased duration
           ease: "power1.out",
-          stagger: 0.2,
-          repeat: 1,
-          repeatDelay: 0.3,
+          stagger: 0.3, // Increased stagger
+          repeat: 3, // Increased from 1 to 3 repeats
+          repeatDelay: 0.5, // Increased delay between repeats
         },
-        "-=0.8"
+        "-=2.0"
       )
-      .to({}, { duration: 0.3 })
+      
+      // Additional brewing phase with text changes
+      .to(taglineRef.current, {
+        opacity: 0.7,
+        duration: 0.5,
+      }, "-=3")
+      .set(taglineRef.current, {
+        innerHTML: '<p class="text-amber-100 text-xl font-light tracking-wider mb-2">Almost ready...</p><div class="w-32 h-0.5 bg-gradient-to-r from-transparent via-amber-400 to-transparent mx-auto opacity-60"></div>'
+      })
+      .to(taglineRef.current, {
+        opacity: 1,
+        duration: 0.5,
+      })
+      
+      // Hold the final state longer
+      .to({}, { duration: 1.5 }) // Extended hold time
+      
+      // Final fade out
       .to(loaderRef.current, {
         opacity: 0,
         scale: 0.95,
-        duration: 0.7,
+        duration: 1.0, // Increased fade out duration
         ease: "power2.inOut",
       });
 

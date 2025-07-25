@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -7,6 +7,8 @@ gsap.registerPlugin(ScrollTrigger);
 const Section5 = () => {
   const canvasRef = useRef(null);
   const containerRef = useRef(null);
+  const [loadingProgress, setLoadingProgress] = useState(0);
+  const [isReady, setIsReady] = useState(false);
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -15,11 +17,12 @@ const Section5 = () => {
     if (!canvas || !container) return;
     const context = canvas.getContext('2d');
 
-    
     const frameCount = 110;
     const images = new Array(frameCount);
     const imageSeq = { frame: 0 };
 
+    // Preload critical frames first (every 10th frame for smooth preview)
+    const criticalFrames = [0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 109];
     
     const resizeCanvas = () => {
       canvas.width = window.innerWidth;
@@ -30,7 +33,6 @@ const Section5 = () => {
     };
     resizeCanvas();
     window.addEventListener('resize', resizeCanvas);
-
 
     const getImagePath = (index) => {
       const frameNumber = String(index + 1).padStart(3, '0');
@@ -54,43 +56,117 @@ const Section5 = () => {
 
     const renderFrame = () => {
       const currentFrame = Math.floor(imageSeq.frame);
-      if (images[currentFrame] && images[currentFrame].complete) {
-        scaleImage(images[currentFrame], context);
+      let frameToRender = currentFrame;
+      
+      // If current frame isn't loaded, find the nearest loaded frame
+      if (!images[currentFrame] || !images[currentFrame].complete) {
+        for (let i = 1; i <= 10; i++) {
+          if (currentFrame - i >= 0 && images[currentFrame - i] && images[currentFrame - i].complete) {
+            frameToRender = currentFrame - i;
+            break;
+          }
+          if (currentFrame + i < frameCount && images[currentFrame + i] && images[currentFrame + i].complete) {
+            frameToRender = currentFrame + i;
+            break;
+          }
+        }
+      }
+      
+      if (images[frameToRender] && images[frameToRender].complete) {
+        scaleImage(images[frameToRender], context);
       }
     };
 
-    
-    const loadImages = () => {
+    // Progressive loading strategy
+    const loadImagesProgressively = () => {
       return new Promise((resolve) => {
-        let loadedCount = 0;
-        let errorCount = 0;
-        for (let i = 0; i < frameCount; i++) {
-          const img = new window.Image();
-          images[i] = img;
-          img.onload = function () {
-            loadedCount++;
-            if (loadedCount === 1) {
-              imageSeq.frame = 0;
-              renderFrame();
+        let totalLoaded = 0;
+        let criticalLoaded = 0;
+        
+        // Load critical frames first
+        const loadCriticalFrames = () => {
+          return Promise.all(criticalFrames.map(index => {
+            return new Promise((frameResolve) => {
+              const img = new window.Image();
+              images[index] = img;
+              
+              img.onload = () => {
+                criticalLoaded++;
+                setLoadingProgress(Math.floor((criticalLoaded / criticalFrames.length) * 50));
+                if (criticalLoaded === 1) {
+                  imageSeq.frame = 0;
+                  renderFrame();
+                  setIsReady(true);
+                }
+                frameResolve();
+              };
+              
+              img.onerror = () => {
+                frameResolve();
+              };
+              
+              img.src = getImagePath(index);
+            });
+          }));
+        };
+
+        // Load remaining frames in background
+        const loadRemainingFrames = () => {
+          const remainingFrames = [];
+          for (let i = 0; i < frameCount; i++) {
+            if (!criticalFrames.includes(i)) {
+              remainingFrames.push(i);
             }
-            if (loadedCount + errorCount === frameCount) {
-              resolve();
-            }
+          }
+
+          // Load in batches of 10
+          const batchSize = 10;
+          let batchIndex = 0;
+
+          const loadBatch = () => {
+            const batch = remainingFrames.slice(batchIndex * batchSize, (batchIndex + 1) * batchSize);
+            
+            Promise.all(batch.map(index => {
+              return new Promise((frameResolve) => {
+                const img = new window.Image();
+                images[index] = img;
+                
+                img.onload = () => {
+                  totalLoaded++;
+                  const progress = 50 + Math.floor((totalLoaded / remainingFrames.length) * 50);
+                  setLoadingProgress(progress);
+                  frameResolve();
+                };
+                
+                img.onerror = () => {
+                  totalLoaded++;
+                  frameResolve();
+                };
+                
+                img.src = getImagePath(index);
+              });
+            })).then(() => {
+              batchIndex++;
+              if (batchIndex * batchSize < remainingFrames.length) {
+                // Small delay between batches to prevent overwhelming the browser
+                setTimeout(loadBatch, 50);
+              } else {
+                resolve();
+              }
+            });
           };
-          img.onerror = function () {
-            errorCount++;
-            if (loadedCount + errorCount === frameCount) {
-              resolve();
-            }
-          };
-          img.src = getImagePath(i);
-        }
+
+          loadBatch();
+        };
+
+        // Start loading process
+        loadCriticalFrames().then(() => {
+          loadRemainingFrames();
+        });
       });
     };
 
-    
     const setupAnimation = () => {
-      
       const canvasAnimation = gsap.to(imageSeq, {
         frame: frameCount - 1,
         snap: 'frame',
@@ -108,7 +184,6 @@ const Section5 = () => {
         onUpdate: renderFrame,
       });
 
-      
       const textElements = document.querySelectorAll('.section5-canvas-text h4');
       if (textElements.length > 0) {
         textElements.forEach((h) => {
@@ -119,7 +194,6 @@ const Section5 = () => {
           h.innerHTML = clutterc;
         });
 
-        
         const tlc = gsap.timeline({
           scrollTrigger: {
             trigger: canvas,
@@ -155,19 +229,28 @@ const Section5 = () => {
       }
     };
 
-    
     let animationContext;
-    loadImages()
-      .then(() => {
-        animationContext = gsap.context(() => setupAnimation(), container);
-      });
-
     
+    // Start progressive loading
+    loadImagesProgressively().then(() => {
+      setLoadingProgress(100);
+    });
+
+    // Setup animation once critical frames are loaded
+    const checkReady = () => {
+      if (isReady) {
+        animationContext = gsap.context(() => setupAnimation(), container);
+      } else {
+        setTimeout(checkReady, 100);
+      }
+    };
+    checkReady();
+
     return () => {
       window.removeEventListener('resize', resizeCanvas);
       if (animationContext) animationContext.revert();
     };
-  }, []);
+  }, [isReady]);
 
   return (
     <section
@@ -182,14 +265,56 @@ const Section5 = () => {
         justifyContent: 'center',
       }}
     >
+      {/* Loading indicator */}
+      {loadingProgress < 100 && (
+        <div
+          style={{
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            zIndex: 10,
+            color: 'white',
+            textAlign: 'center',
+            fontFamily: 'Arial, sans-serif',
+          }}
+        >
+          <div
+            style={{
+              width: '200px',
+              height: '4px',
+              backgroundColor: 'rgba(255, 255, 255, 0.2)',
+              borderRadius: '2px',
+              overflow: 'hidden',
+              marginBottom: '10px',
+            }}
+          >
+            <div
+              style={{
+                width: `${loadingProgress}%`,
+                height: '100%',
+                backgroundColor: 'white',
+                transition: 'width 0.3s ease',
+              }}
+            />
+          </div>
+          <div style={{ fontSize: '14px', opacity: 0.8 }}>
+            {loadingProgress < 50 ? 'Loading experience...' : 'Optimizing quality...'}
+          </div>
+        </div>
+      )}
+
       <canvas
         ref={canvasRef}
         style={{
           position: 'relative',
           minHeight: '100vh',
           width: '100%',
+          opacity: isReady ? 1 : 0.3,
+          transition: 'opacity 0.5s ease',
         }}
       />
+      
       <div
         className="section5-canvas-text-wrap"
         style={{
@@ -207,7 +332,6 @@ const Section5 = () => {
           pointerEvents: 'none',
         }}
       >
-
       </div>
     </section>
   );
